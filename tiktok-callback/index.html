@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connected · Benni Online Publisher</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:600px; margin:0 auto; padding:96px 24px; text-align:center; }
+  .mark { width:64px; height:64px; border-radius:20px; background:var(--blue); margin:0 auto 20px; display:grid; place-items:center; }
+  h1 { font-size:30px; letter-spacing:-.02em; margin:0 0 8px; }
+  p { color:var(--muted); margin:0 0 24px; }
+  code { display:block; background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; font:500 14px/1.5 "JetBrains Mono", ui-monospace, monospace; word-break:break-all; color:var(--text); }
+  .hint { font-size:14px; color:var(--faint); margin-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
+  <h1 id="title">Connected</h1>
+  <p id="msg">You can close this tab. The publisher picks up from here.</p>
+  <code id="code" hidden></code>
+  <p class="hint" id="hint" hidden>If the publisher did not pick this up automatically, paste the code above into it.</p>
+  <script>
+    // TikTok's Login Kit redirects here with ?code=…&state=…; show the code so the local publisher can be fed by hand if needed.
+    const q = new URLSearchParams(location.search);
+    if (q.get("error")) { document.getElementById("title").textContent = "Not connected"; document.getElementById("msg").textContent = q.get("error_description") || q.get("error"); }
+    else if (q.get("code")) { const c = document.getElementById("code"); c.textContent = q.get("code"); c.hidden = false; document.getElementById("hint").hidden = false; }
+  </script>
+</main>
+</body>
+</html>
