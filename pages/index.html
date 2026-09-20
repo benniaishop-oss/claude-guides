@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Put a website online with Claude Code and GitHub Pages</title>
+<meta name="description" content="Three steps: install the GitHub CLI, log in with a code, let Claude Code create the repo, push the page and switch on GitHub Pages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF; --tint: #F4F9FF; --line: #E4ECF6; --line-strong: #CEDDEF;
+    --text: #0D1826; --muted: #4B5B70; --faint: #8494A8;
+    --blue: #2E90FA; --blue-dark: #1570CF; --blue-light: #7CC0FF;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 680px; margin: 0 auto; padding: 64px 24px 96px; }
+  a { color: var(--blue-dark); }
+  .back { display: inline-block; color: var(--faint); text-decoration: none; font-size: 14px; margin-bottom: 28px; }
+  .eyebrow { color: var(--blue-dark); font-weight: 600; font-size: 14px; letter-spacing: .02em; text-transform: uppercase; }
+  h1 { font-size: 38px; line-height: 1.15; letter-spacing: -.02em; margin: 8px 0 12px; }
+  p.lead { color: var(--muted); font-size: 19px; margin: 0 0 36px; }
+  .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+  .pill { background: var(--tint); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--muted); }
+  h2 { font-size: 24px; letter-spacing: -.01em; margin: 44px 0 10px; display: flex; align-items: center; gap: 12px; }
+  h2 .n { width: 32px; height: 32px; border-radius: 10px; background: var(--blue); color: #fff; font-size: 15px; font-weight: 700; display: grid; place-items: center; flex: none; }
+  p { margin: 0 0 14px; }
+  pre { background: #0D1826; color: #E6EEF8; border-radius: 14px; padding: 16px 18px; overflow-x: auto; font: 500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin: 12px 0 18px; }
+  pre .c { color: #8494A8; }
+  .note { background: var(--tint); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin: 16px 0 6px; color: var(--muted); font-size: 15.5px; }
+  .note b { color: var(--text); }
+  .prompt { border-left: 3px solid var(--blue-light); padding: 4px 0 4px 16px; color: var(--muted); font-style: italic; margin: 12px 0 18px; }
+  ul { padding-left: 22px; margin: 0 0 14px; } li { margin: 4px 0; }
+  footer { margin-top: 64px; color: var(--faint); font-size: 14px; border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← All guides</a>
+  <div class="eyebrow">Guide · GitHub Pages</div>
+  <h1>Put a website online with Claude Code, in three steps</h1>
+  <p class="lead">Free hosting on GitHub Pages, straight from the terminal. Claude Code runs the commands, you press yes.</p>
+  <div class="meta"><span class="pill">Windows, macOS, Linux</span><span class="pill">About 5 minutes</span><span class="pill">Free</span></div>
+
+  <p>You need <a href="https://claude.com/claude-code">Claude Code</a> installed and a folder with at least one <code>index.html</code>. Don't have one? Ask Claude to build the page first, then come back here.</p>
+
+  <h2><span class="n">1</span>Install the GitHub CLI</h2>
+  <p>The GitHub CLI (<code>gh</code>) is the tool Claude uses to talk to GitHub. One command:</p>
+<pre><span class="c"># Windows</span>
+winget install --id GitHub.cli -e
+
+<span class="c"># macOS</span>
+brew install gh
+
+<span class="c"># Ubuntu / Debian</span>
+sudo apt install gh</pre>
+  <p>Or just tell Claude Code:</p>
+  <p class="prompt">Install the GitHub CLI on this machine.</p>
+  <div class="note"><b>Windows:</b> open a new terminal after the install, so <code>gh</code> is on your PATH.</div>
+
+  <h2><span class="n">2</span>Log in with a one-time code</h2>
+<pre>gh auth login --web</pre>
+  <p>The terminal shows an eight-character code and opens <code>github.com/login/device</code>. Type the code, click Authorize, done. Claude never sees your password: GitHub hands the tool a token, and you can revoke it any time in your GitHub settings.</p>
+  <p>Check it worked:</p>
+<pre>gh auth status</pre>
+
+  <h2><span class="n">3</span>Create the repo, push the page, switch on Pages</h2>
+  <p>Inside your site folder, tell Claude Code:</p>
+  <p class="prompt">Create a public GitHub repo for this folder called my-site, push it, and switch on GitHub Pages from the main branch.</p>
+  <p>These are the commands Claude runs, if you'd rather do it by hand:</p>
+<pre>git init
+git add -A
+git commit -m "First version"
+git branch -M main
+gh repo create my-site --public --source=. --push
+gh api -X POST repos/&lt;your-username&gt;/my-site/pages -f 'source[branch]=main' -f 'source[path]=/'</pre>
+  <p>About a minute later your site is live at:</p>
+<pre>https://&lt;your-username&gt;.github.io/my-site/</pre>
+  <div class="note"><b>Updating the site later:</b> change the files, then <code>git add -A && git commit -m "Update" && git push</code>. Or tell Claude "push the changes". Pages rebuilds on every push.</div>
+
+  <h2>Good to know</h2>
+  <ul>
+    <li>Pages serves static files only: HTML, CSS, JavaScript, images. No server code, no database.</li>
+    <li>The repo is public, so the source of your site is public too. Fine for a landing page, not for secrets.</li>
+    <li>Add a file called <code>.nojekyll</code> to the folder so GitHub serves your files exactly as they are.</li>
+    <li>Custom domain: in the repo, Settings → Pages → Custom domain, then a CNAME record at your DNS provider.</li>
+  </ul>
+
+  <footer>From the Claude Code videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
