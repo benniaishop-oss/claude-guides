@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caveman: the Claude Code skill that cuts tokens by talking like a caveman</title>
+<meta name="description" content="Install the caveman skill for Claude Code in one npx command. 69 tokens become 19, code and error messages stay untouched, JetBrains measured no quality loss on 86 real tasks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; }
+  pre .c { color:#8494A8; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .compare { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:8px 0 8px; }
+  .compare div { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; font-size:15.5px; color:var(--muted); }
+  .compare b { display:block; color:var(--text); margin-bottom:6px; }
+  @media (max-width:560px) { .compare { grid-template-columns:1fr; } }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide · Claude Code skill</div>
+  <h1>Caveman: the skill that cuts tokens by talking like a caveman</h1>
+  <p class="lead">A rule file that makes your coding agent drop the throat-clearing and keep the answer. Over 107,000 stars on GitHub, a JetBrains lab test, an Adobe Research paper. Install takes one command.</p>
+  <div class="meta"><span class="pill">GitHub: JuliusBrussee/caveman</span><span class="pill">About 2 minutes</span><span class="pill">Skill: MIT, free</span><span class="pill">Works in 30+ agents</span></div>
+
+  <p>Repo: <a href="https://github.com/JuliusBrussee/caveman">github.com/JuliusBrussee/caveman</a></p>
+
+  <h2>What it does</h2>
+  <p>Your agent bills by the token and writes like it knows that. Caveman is a skill (a rules file) that makes the agent answer short. Same diagnosis, same fix, fewer words. From the repo's own example:</p>
+  <div class="compare">
+    <div><b>Normal agent · 69 tokens</b>The reason your React component is re-rendering is likely because you're creating a new object reference on each render cycle. When you pass an inline object as a prop, React's shallow comparison sees it as a different object every time, which triggers a re-render. I'd recommend using useMemo to memoize the object.</div>
+    <div><b>Caveman agent · 19 tokens</b>New object ref each render. Inline object prop = new ref = re-render. Wrap in <code>useMemo</code>.</div>
+  </div>
+  <div class="note"><b>What stays untouched:</b> code, commands, file paths and exact error messages are never cavemanned, only the prose around them. Security warnings and "are you sure?" confirmations come back in full sentences.</div>
+
+  <h2><span class="n">1</span>Install the skill (one command)</h2>
+  <p>No account, no API key. Works for Claude Code, Codex, Gemini CLI, Cursor, Windsurf, Cline, Copilot and more:</p>
+<pre>npx skills add JuliusBrussee/caveman -g</pre>
+  <p>Only Claude Code? Use the plugin route instead:</p>
+<pre>claude plugin marketplace add JuliusBrussee/caveman
+claude plugin install caveman@caveman</pre>
+  <p>If the agent doesn't switch on its own, type <code>/caveman</code>.</p>
+
+  <h2><span class="n">2</span>Turn the dial</h2>
+  <div class="rules">
+    <div class="rule"><b>/caveman lite</b><span>Tight but polite. Good default for shared repos.</span></div>
+    <div class="rule"><b>/caveman ultra</b><span>Grunts only. Half the fun is that it is still right.</span></div>
+    <div class="rule"><b>/caveman-commit</b><span>Writes a one-line Conventional Commit.</span></div>
+    <div class="rule"><b>/caveman-review</b><span>One finding per line: <code>L42: 🔴 null deref. Guard it.</code></span></div>
+    <div class="rule"><b>/caveman-compress CLAUDE.md</b><span>Shrinks your memory files, keeps every heading, path and command, backs up the original.</span></div>
+    <div class="rule"><b>stop caveman</b><span>Normal prose returns. No hard feelings.</span></div>
+  </div>
+
+  <h2><span class="n">3</span>The numbers (the honest version)</h2>
+  <ul>
+    <li><b>JetBrains</b>, 86 real coding tasks, paired A/B, skill only: 8.5% fewer output tokens, about 10% cost, <b>no detectable quality change</b> (sign test p = 0.82).</li>
+    <li><b>Adobe Research</b> (CAVEWOMAN, arXiv 2606.24083), eight models, five datasets: caveman-style output cuts realized cost 1.4 to 2.4× per model, up to 3×.</li>
+    <li><b>The repo's own eval</b>, ten dev questions vs. a plain "answer concisely" control: 50% fewer output tokens at the median.</li>
+  </ul>
+  <div class="note"><b>Read those together:</b> chat-style Q&amp;A gets a big cut. In long agentic sessions most tokens are code and tool output, which the skill never touches, so the saving on the bill is smaller there. That is why the same project ships a proxy (<code>npm install -g @caveman-ai/cli</code>) that shrinks what the agent <i>reads</i>: logs, test output, JSON, diffs. Start with the skill; graduate to the proxy if the bill says so.</div>
+
+  <h2>Good to know</h2>
+  <ul>
+    <li>Caveman never rewrites <i>your</i> prompts, only the agent's answers. The Adobe paper found that compressing the human's prompt makes models answer longer and worse.</li>
+    <li>The skill is MIT and free forever. The proxy is an MIT CLI with a BSL-1.1 runtime.</li>
+    <li>Changed your mind: <code>npx -y github:JuliusBrussee/caveman -- --uninstall</code></li>
+  </ul>
+
+  <footer>From the Claude Code videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
