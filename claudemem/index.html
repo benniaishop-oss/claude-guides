@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude-mem: give Claude Code a memory that survives the session (94,000+ stars)</title>
+<meta name="description" content="Install claude-mem (thedotmack/claude-mem) in Claude Code: five hooks save what Claude does into a local SQLite database, and the next session starts with that context. Install, the three search tools, privacy, and how to remove it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude Code plugins</div>
+  <h1>claude-mem: Claude Code remembers yesterday</h1>
+  <p class="lead">Every Claude Code session starts from zero. claude-mem watches what Claude does, compresses it into short observations, stores them in a local database and puts the relevant ones back into your next session. You stop re-explaining your project every morning.</p>
+  <div class="meta"><span class="pill">GitHub: thedotmack/claude-mem</span><span class="pill">94,536 stars on Sep 23 2026</span><span class="pill">v13.25.3</span><span class="pill">Apache-2.0</span></div>
+
+  <p>Repo: <a href="https://github.com/thedotmack/claude-mem">github.com/thedotmack/claude-mem</a> &middot; Docs: <a href="https://docs.claude-mem.ai/">docs.claude-mem.ai</a></p>
+
+  <h2>How it works</h2>
+  <div class="rules">
+    <div class="rule"><b>5 lifecycle hooks</b><span>SessionStart, UserPromptSubmit, PostToolUse, Stop and SessionEnd. They see every prompt and tool call without you doing anything.</span></div>
+    <div class="rule"><b>SQLite + Chroma</b><span>Sessions, observations and summaries go into a local SQLite database, with a vector index for semantic search on top.</span></div>
+    <div class="rule"><b>Context injection</b><span>When a new session starts, the relevant observations from earlier sessions are already there.</span></div>
+    <div class="rule"><b>mem-search</b><span>Ask in plain language ("how did we fix the auth bug?") and Claude searches your project history.</span></div>
+  </div>
+
+  <h2><span class="n">1</span>Check the requirements</h2>
+  <ul>
+    <li><a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, a current version with plugin support</li>
+    <li><a href="https://nodejs.org/">Node.js</a> 20 or newer (on Windows: if <code>npm</code> is "not recognized", install Node.js and restart the terminal)</li>
+    <li>Bun and uv are installed automatically if they are missing</li>
+  </ul>
+
+  <h2><span class="n">2</span>Install</h2>
+  <p><b>Option A, the installer.</b> Run this in your terminal (PowerShell on Windows):</p>
+<pre>npx claude-mem install</pre>
+  <p>After setup it opens your browser to sign in to claude-mem. That unlocks their hosted "observer", which compresses your memories off your Claude plan, free for the first 30 days. After the trial, memory falls back to your Anthropic plan unless you subscribe.</p>
+  <p><b>No account, nothing leaves your machine except your normal Claude usage:</b> choose the Anthropic-plan provider right away. It skips cmem.ai completely and asks which Claude model should compress the observations.</p>
+<pre>npx claude-mem install --provider claude</pre>
+  <p><b>Option B, from inside Claude Code.</b> Two native plugin commands:</p>
+<pre>/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem</pre>
+  <p>Then restart Claude Code.</p>
+  <div class="note"><b>Not <code>npm install -g claude-mem</code>.</b> That installs only the library: no hooks, no worker, no memory. Always use <code>npx claude-mem install</code> or the <code>/plugin</code> commands.</div>
+
+  <h2><span class="n">3</span>Just work</h2>
+  <p>Use Claude Code like always. The hooks record in the background. The worker prints a local URL on startup: open it to watch the memory stream live in the web viewer.</p>
+
+  <h2><span class="n">4</span>Open a new session</h2>
+  <p>Start Claude Code again tomorrow. Context from previous sessions shows up on its own. To dig deeper, ask Claude to search your memory. Under the hood it uses three MCP tools in a row, which saves about 10x tokens compared with loading everything:</p>
+  <div class="rules">
+    <div class="rule"><b>search</b><span>A compact index of matching observations with IDs, about 50 to 100 tokens per result.</span></div>
+    <div class="rule"><b>timeline</b><span>What happened around one observation, in order.</span></div>
+    <div class="rule"><b>get_observations</b><span>The full details, only for the IDs you actually need.</span></div>
+  </div>
+
+  <h2>Privacy</h2>
+  <ul>
+    <li>Wrap anything sensitive in <code>&lt;private&gt;</code> tags and it is not stored.</li>
+    <li>Settings live in <code>~/.claude-mem/settings.json</code> (model, port, data directory, what gets injected). It is created on the first run.</li>
+  </ul>
+
+  <h2>Removing it again</h2>
+  <p>Plugin install: open <code>/plugin</code> in Claude Code and uninstall <code>claude-mem</code>, then restart. Your stored memories stay in <code>~/.claude-mem</code> until you delete that folder yourself.</p>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li>Compressing observations costs model usage. With the Anthropic-plan provider it comes out of your Claude plan.</li>
+    <li>It works with more than Claude Code (Codex, Gemini, OpenCode, Copilot and others), but Claude Code is the main target.</li>
+    <li>Open source under Apache-2.0. The hosted observer and cloud sync are optional paid extras; nothing in this guide needs them.</li>
+  </ul>
+
+  <footer>From the Claude Code videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
