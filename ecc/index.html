@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECC: the Claude Code plugin with 265,000+ stars, installed step by step</title>
+<meta name="description" content="Install ECC (affaan-m/ECC) in Claude Code: 68 agents and 292 skills in one plugin. Plan first, write the failing test first, get a fresh-context code review. Install, first commands, and how to remove it again.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude Code plugins</div>
+  <h1>ECC: one plugin, 68 agents, 292 skills</h1>
+  <p class="lead">ECC turns Claude Code from "writes code when asked" into a working process: plan first, write the failing test first, build until it passes, then let a fresh agent review the result. You install it once instead of repeating it in every prompt.</p>
+  <div class="meta"><span class="pill">GitHub: affaan-m/ECC</span><span class="pill">265,774 stars on Sep 23 2026</span><span class="pill">Release 2.2.2</span><span class="pill">MIT</span></div>
+
+  <p>Repo: <a href="https://github.com/affaan-m/ECC">github.com/affaan-m/ECC</a> &middot; Website: <a href="https://ecc.tools">ecc.tools</a></p>
+
+  <h2>What you get</h2>
+  <p>The README sums it up in one line: <code>plan -&gt; test -&gt; implement -&gt; review -&gt; verify -&gt; remember -&gt; improve</code>. The four pieces you will notice first:</p>
+  <div class="rules">
+    <div class="rule"><b>/ecc:plan "your feature"</b><span>The planner agent writes an implementation plan you can edit before a single line of code exists.</span></div>
+    <div class="rule"><b>tdd-workflow</b><span>A skill that makes Claude write a failing test first (RED), then implement until it passes (GREEN), then refactor. "Please use TDD" stops being something the model can forget.</span></div>
+    <div class="rule"><b>/code-review</b><span>The code-reviewer agent looks at your changes from a fresh context, so the same context that wrote the code is not the one grading it.</span></div>
+    <div class="rule"><b>/save-session and /resume-session</b><span>End a long session with a summary and pick it up later without pasting the whole transcript back in.</span></div>
+  </div>
+  <p>Also inside: <code>/build-fix</code> for broken builds, <code>/refactor-clean</code> for dead code, <code>/context-budget</code> when the context window gets heavy, and AgentShield (<code>/security-scan</code>), which scans your prompts, hooks, MCP config and permissions as an attack surface.</p>
+
+  <h2><span class="n">1</span>Check the requirements</h2>
+  <ul>
+    <li><a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a> 2.1 or newer (<code>claude --version</code>)</li>
+    <li><a href="https://nodejs.org/">Node.js</a> 18 or newer and <a href="https://git-scm.com/">Git</a></li>
+  </ul>
+
+  <h2><span class="n">2</span>Install</h2>
+  <p><b>Option A, guided (recommended by the author).</b> Run this in your terminal (PowerShell on Windows). For a personal setup choose <b>Global user</b> and <b>Standard</b> hooks:</p>
+<pre>npx ecc-universal@2.2.2 setup</pre>
+  <p><b>Option B, from inside Claude Code.</b> Two native plugin commands:</p>
+<pre>/plugin marketplace add https://github.com/affaan-m/ECC
+/plugin install ecc@ecc</pre>
+  <p>Then start a new Claude Code session and check that <code>ecc@ecc</code> shows up in <code>/plugin list</code>.</p>
+  <div class="note"><b>Pick one path, not both.</b> Installing ECC twice into Claude Code duplicates skills, commands and hooks. And only install from the official sources: the GitHub repo <code>affaan-m/ECC</code>, the npm package <code>ecc-universal</code>, the plugin <code>ecc@ecc</code> and ecc.tools. The README warns that re-uploads elsewhere may contain malware.</div>
+
+  <h2><span class="n">3</span>Run your first feature through it</h2>
+  <p>This is the "new feature" flow from the README:</p>
+<pre>/ecc:plan "Add user authentication with OAuth"</pre>
+  <ul>
+    <li>Read the plan, edit it, confirm it.</li>
+    <li>Ask Claude to use the <code>tdd-workflow</code> skill: it writes the failing test first, then the code until the test passes.</li>
+    <li>Run <code>/code-review</code> for the fresh-context review and fix what it finds.</li>
+  </ul>
+  <p>Fixing a bug works the same way: reproduce it with a failing test first, then fix, then review.</p>
+
+  <h2><span class="n">4</span>Optional: rules for your language</h2>
+  <p>Plugins cannot ship rules, so ECC's language standards are copied by hand. Take only the common pack plus the one language you actually use:</p>
+<pre>git clone https://github.com/affaan-m/ECC.git
+cd ECC
+mkdir -p ~/.claude/rules/ecc
+cp -R rules/common ~/.claude/rules/ecc/
+cp -R rules/typescript ~/.claude/rules/ecc/</pre>
+  <p>Rules are always loaded, so every extra pack costs context in every session.</p>
+
+  <h2>Removing it again</h2>
+  <p>Plugin install: open <code>/plugin</code> in Claude Code and uninstall <code>ecc@ecc</code>, then delete any rule folders you copied by hand. Guided install: run these from the same directory you installed from.</p>
+<pre>npx ecc-universal@2.2.2 uninstall --dry-run
+npx ecc-universal@2.2.2 uninstall</pre>
+  <p>ECC only removes files it recorded in its own install-state, nothing else in your <code>~/.claude</code>.</p>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li>It is big. 292 skills are loaded only when a task needs them, but hooks run on every session. If you want it lighter, the README has a minimal profile without the hook runtime: <code>npx ecc-universal@2.2.2 install --profile minimal --target claude</code>.</li>
+    <li>It works best with Claude Code. Codex, Cursor, Gemini and others get adapters with fewer features.</li>
+    <li>The open-source repo is free under MIT. ECC Pro is a separate paid GitHub App for private repos; you do not need it for anything in this guide.</li>
+  </ul>
+
+  <footer>From the Claude Code videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
