@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Instagram agent skill: 13 free Claude skills that write your Reels, captions and weekly plan</title>
+<meta name="description" content="Set up Jakeschincariol/instagram-agent-skill in Claude: Reels off 26 scored hook formulas, a viral finder that ranks reels by how far they beat their own account, caption linter, comment replies, weekly plan. Install, first steps, and what it does not do.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude skills</div>
+  <h1>The Instagram agent skill: your Reels, captions and week, written by Claude</h1>
+  <p class="lead">Thirteen free Claude skills for one Instagram account. They write your Reels off 26 hook formulas and score the hook before you film, find the reels that are working in your niche, lint your caption, draft replies to your comments and plan your week. You still hit post yourself.</p>
+  <div class="meta"><span class="pill">GitHub: Jakeschincariol/instagram-agent-skill</span><span class="pill">MIT license</span><span class="pill">No signup, no API key</span></div>
+
+  <p>Repo: <a href="https://github.com/Jakeschincariol/instagram-agent-skill">github.com/Jakeschincariol/instagram-agent-skill</a></p>
+
+  <h2><span class="n">1</span>Install it</h2>
+  <p><b>Easiest:</b> paste this into Claude and send it.</p>
+<pre>https://github.com/Jakeschincariol/instagram-agent-skill
+
+Install this skill, then confirm /ig-reel works.</pre>
+  <p><b>Or yourself, in Claude Code</b> (terminal):</p>
+<pre>git clone https://github.com/Jakeschincariol/instagram-agent-skill.git
+cp -r instagram-agent-skill/skills/ig-* ~/.claude/skills/</pre>
+  <p><b>Or as a plugin</b>, inside Claude Code:</p>
+<pre>/plugin marketplace add Jakeschincariol/instagram-agent-skill
+/plugin install instagram-agent</pre>
+  <div class="note"><b>No Claude Code?</b> Paste any single <code>SKILL.md</code> from the repo at the top of a normal Claude chat and it runs as a mode. You lose the five Python tools (hook scorer, beat sheet, caption linter, humanizer, swipe file), which is most of the point of <code>/ig-reel</code> and <code>/ig-human</code>, but the rest works.</div>
+
+  <h2><span class="n">2</span>Spend ten minutes on your voice</h2>
+  <p>Every skill reads one file: <code>~/.claude/instagram/voice.md</code>. Copy <code>templates/voice.md</code> from the repo there and fill it in, or send Claude three of your own reels and say <i>"write my voice.md from these"</i>. Skip it and everything comes out sounding like everyone else.</p>
+
+  <h2><span class="n">3</span>Start with these four</h2>
+  <div class="rules">
+    <div class="rule"><b>/ig-reel</b><span>One idea into a Reel: three hooks from 26 formulas, scored, then the script, the on-screen text and a timed beat sheet.</span></div>
+    <div class="rule"><b>/ig-viral</b><span>Finds what is working in your niche and ranks it by how far each reel beat its own account's median, not by raw views. Names the hook formula and writes a swipe file. You drive your own browser, it never logs in as you.</span></div>
+    <div class="rule"><b>/ig-caption</b><span>Shows you the roughly 125 characters the feed shows before "more", then lints length, hook, hashtags (max five), the one call to action and your search terms.</span></div>
+    <div class="rule"><b>/ig-plan</b><span>The week: what to post, which format, when, and the 10 accounts to engage with.</span></div>
+  </div>
+
+  <h2>The other nine</h2>
+  <ul>
+    <li><code>/ig-carousel</code> swipe posts: the cover, slide copy and the 1080x1350 files</li>
+    <li><code>/ig-story</code> the daily story sequence and the DM funnel</li>
+    <li><code>/ig-profile</code> scores your profile out of 100 and rewrites what lost points</li>
+    <li><code>/ig-human</code> the humanizer: strips em dashes, stock phrases and invisible characters, then scores the draft on five checks</li>
+    <li><code>/ig-comment</code> comments on other people's posts (never "🔥🔥🔥")</li>
+    <li><code>/ig-reply</code> sorts the comments under your post (keyword, lead, question, …) and drafts replies in that order</li>
+    <li><code>/ig-dm</code> keyword delivery, first message, collab pitch and two follow-ups</li>
+    <li><code>/ig-repurpose</code> one video, podcast or newsletter into a week of reels and carousels</li>
+    <li><code>/ig-audit</code> post-mortem on what you already posted, ranked by outlier multiple and sends per reach</li>
+  </ul>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li><b>It does not post for you.</b> Every skill ends in a copy-ready block. Automating posting, comments or DMs through a browser or third-party tool breaks Instagram's terms and gets accounts blocked, so the repo deliberately does not do it.</li>
+    <li>The hook scorer is good at catching weak hooks (greetings, preambles, nothing concrete). The author measured it: it does <i>not</i> reliably pick which of two good hooks will win. Kill the weak ones, then trust your own retention graph.</li>
+    <li>The humanizer's checks are local heuristics, not GPTZero or similar. Nobody can honestly promise "undetectable".</li>
+    <li>Free and open source under MIT. Made by Jake Schincariol.</li>
+  </ul>
+
+  <footer>From the Claude videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
