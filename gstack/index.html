@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gstack: Garry Tan's Claude Code setup, installed in 30 seconds</title>
+<meta name="description" content="Install gstack, the open-source Claude Code setup by Y Combinator CEO Garry Tan: 23 specialists as slash commands (/office-hours, /review, /qa, /ship). What it installs, the first five commands to run, and how to remove it again.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude Code skills</div>
+  <h1>gstack: Garry Tan's Claude Code setup</h1>
+  <p class="lead">Garry Tan, President and CEO of Y Combinator, open-sourced the setup he builds with every day. It turns Claude Code into a small team: 23 specialists and 8 power tools, all slash commands, all Markdown, free under MIT.</p>
+  <div class="meta"><span class="pill">GitHub: garrytan/gstack</span><span class="pill">133,954 stars on Sep 23 2026</span><span class="pill">About 30 seconds to install</span><span class="pill">MIT</span></div>
+
+  <p>Repo: <a href="https://github.com/garrytan/gstack">github.com/garrytan/gstack</a></p>
+
+  <h2>What you get</h2>
+  <p>Instead of a blank prompt, every stage of a sprint has its own command, and each one hands its output to the next: <b>Think, Plan, Build, Review, Test, Ship, Reflect</b>. The four you will use first:</p>
+  <div class="rules">
+    <div class="rule"><b>/office-hours</b><span>Start here. Six forcing questions that reframe your product before any code is written, then a design doc the later skills read.</span></div>
+    <div class="rule"><b>/review</b><span>A staff-engineer review of your branch: the bugs that pass CI but blow up in production. Fixes the obvious ones, asks about the rest.</span></div>
+    <div class="rule"><b>/qa</b><span>Opens a real browser on your app, clicks through the flows, fixes what it finds and writes a regression test for each fix.</span></div>
+    <div class="rule"><b>/ship</b><span>Syncs main, runs the tests, audits coverage, pushes and opens the PR.</span></div>
+  </div>
+  <p>The rest cover planning (<code>/plan-ceo-review</code>, <code>/plan-eng-review</code>, <code>/autoplan</code>), design (<code>/design-review</code>, <code>/design-shotgun</code>, <code>/design-html</code>), debugging (<code>/investigate</code>), security (<code>/cso</code>), deploys (<code>/land-and-deploy</code>, <code>/canary</code>) and safety rails (<code>/careful</code>, <code>/freeze</code>, <code>/guard</code>).</p>
+
+  <h2><span class="n">1</span>Check the requirements</h2>
+  <ul>
+    <li><a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a> and <a href="https://git-scm.com/">Git</a></li>
+    <li><a href="https://bun.sh/">Bun</a> v1.0 or newer</li>
+    <li>On Windows also <a href="https://nodejs.org/">Node.js</a></li>
+  </ul>
+
+  <h2><span class="n">2</span>Install (paste into Claude Code)</h2>
+  <p>Open Claude Code and paste this sentence. Claude clones the repo into your skills folder, runs the setup and adds a short gstack section to your <code>CLAUDE.md</code>:</p>
+<pre>Install gstack: run git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack &amp;&amp; cd ~/.claude/skills/gstack &amp;&amp; ./setup then add a "gstack" section to CLAUDE.md that lists the available gstack skills.</pre>
+  <p>The README has the full version of that sentence, including the exact skill list. If you prefer the shell, the first half is all it runs:</p>
+<pre>git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+cd ~/.claude/skills/gstack &amp;&amp; ./setup</pre>
+  <div class="note"><b>Know what setup changes:</b> besides the skills it registers hooks in <code>~/.claude/settings.json</code>, among them a Stop hook (<code>gstack-timeline-stop</code>) that closes interrupted session timelines. Opt out with <code>./setup --no-timeline-stop-hook</code>. Read the README before running it on a work machine.</div>
+
+  <h2><span class="n">3</span>Run the first five commands</h2>
+  <p>This is the author's own quick start, in order:</p>
+  <ul>
+    <li><code>/office-hours</code> and describe what you are building</li>
+    <li><code>/plan-ceo-review</code> on any feature idea</li>
+    <li><code>/review</code> on any branch with changes</li>
+    <li><code>/qa</code> on your staging URL</li>
+    <li>Stop there. You will know whether it is for you.</li>
+  </ul>
+
+  <h2><span class="n">4</span>Optional: share it with your team</h2>
+  <p>From inside a repo, team mode makes teammates' Claude Code pick up gstack automatically and commits the change:</p>
+<pre>(cd ~/.claude/skills/gstack &amp;&amp; ./setup --team) &amp;&amp; ~/.claude/skills/gstack/bin/gstack-team-init required &amp;&amp; git add .claude/ CLAUDE.md &amp;&amp; git commit -m "require gstack for AI-assisted work"</pre>
+  <p>Swap <code>required</code> for <code>optional</code> to nudge instead of block.</p>
+
+  <h2>Removing it again</h2>
+<pre>~/.claude/skills/gstack/bin/gstack-uninstall</pre>
+  <p>That removes the skills, global state and its hooks. It does not edit <code>CLAUDE.md</code>: delete the <code>## gstack</code> section there yourself.</p>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li>It is opinionated. The commands follow one person's sprint. If you only want a code reviewer, <code>/review</code> alone is fine.</li>
+    <li>Some skills want extra tools: the browser skills build their own Chromium on setup, <code>/cso</code> needs a native C toolchain, and a few features (like the Memorable bridge) are not available on Windows yet.</li>
+    <li>It also runs in Codex, Cursor, OpenCode and other agents via <code>./setup --host &lt;name&gt;</code>, but this guide is about Claude Code.</li>
+  </ul>
+
+  <footer>From the Claude Code videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
