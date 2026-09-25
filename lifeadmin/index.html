@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Automation Skills: 13 free Claude skills that do the admin of your week</title>
+<meta name="description" content="Set up charlie947/life-automation-skills in Claude: inbox triage with reply drafts, meeting booking, follow-up nudges, receipts logged, overdue invoices chased. Draft-only, you always hit send. Install, first steps and what it does not do.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude skills</div>
+  <h1>Life Automation Skills: Claude does the admin of your week</h1>
+  <p class="lead">Thirteen free Claude skills for the repetitive part of a working week: your inbox, meetings, follow-ups, receipts and unpaid invoices. They all read one shared profile, so they know your priorities, your clients and your tone. Everything lands as a draft. You always hit send.</p>
+  <div class="meta"><span class="pill">GitHub: charlie947/life-automation-skills</span><span class="pill">MIT license</span><span class="pill">Draft-only</span></div>
+
+  <p>Repo: <a href="https://github.com/charlie947/life-automation-skills">github.com/charlie947/life-automation-skills</a></p>
+
+  <h2><span class="n">1</span>Install it</h2>
+  <p><b>Easiest:</b> paste this into Claude and send it.</p>
+<pre>https://github.com/charlie947/life-automation-skills
+
+Install these skills, then run company-setup.</pre>
+  <p><b>Or yourself</b>, with the skills CLI:</p>
+<pre>npx skills add charlie947/life-automation-skills</pre>
+  <p>Only want one? Add it on its own:</p>
+<pre>npx skills add charlie947/life-automation-skills/inbox-executive-assistant</pre>
+  <div class="note"><b>No terminal?</b> Every skill is a plain <code>SKILL.md</code>. Drop any <code>skills/&lt;name&gt;/</code> folder into your agent's skills directory and it works.</div>
+
+  <h2><span class="n">2</span>Run company-setup once</h2>
+  <p>This is the keystone. It interviews you in a few short rounds and writes <code>company-profile.md</code>: your priorities, VIPs, working hours, tone and tools. Every other skill reads it first, which is why the drafts sound like you and the inbox knows who matters. Keep that file private; it should never go into a public repo.</p>
+
+  <h2><span class="n">3</span>Connect what the skills need</h2>
+  <p>The skills use Claude's normal connectors, login only, no code:</p>
+  <ul>
+    <li><b>Gmail or Microsoft 365</b> for the inbox, follow-ups, receipts and invoice reminders</li>
+    <li><b>Google Calendar</b> for meetings and the weekly review</li>
+    <li><b>Xero or Stripe</b> (read-only) if you want overdue invoices found for you</li>
+    <li><b>Airtable</b> or a paste-ready sheet block for the expense log</li>
+  </ul>
+  <p>If a connector is missing, the skill tells you which one and stops. It never guesses.</p>
+
+  <h2><span class="n">4</span>Start with these five</h2>
+  <div class="rules">
+    <div class="rule"><b>inbox-executive-assistant</b><span>Triages your inbox into a prioritised brief, drafts the replies and lists today's meetings. Try: <i>"catch me up on my inbox"</i>.</span></div>
+    <div class="rule"><b>meeting-scheduler</b><span>Finds free slots, books, reschedules and sends holds.</span></div>
+    <div class="rule"><b>follow-up-chaser</b><span>Finds the threads where you are waiting on someone and drafts a polite nudge. Never passive-aggressive.</span></div>
+    <div class="rule"><b>expense-wrangler</b><span>Pulls receipts out of email into clean rows. If an amount only sits in a PDF it cannot read, it marks the row <code>[NEEDS: open attachment]</code> instead of guessing.</span></div>
+    <div class="rule"><b>invoice-chaser</b><span>Spots overdue invoices in Xero or Stripe and drafts the reminder, gentle first, then firm, then final notice, by days overdue.</span></div>
+  </div>
+
+  <h2>The rest of the pack</h2>
+  <ul>
+    <li><code>meeting-notes</code> summarises a meeting and routes the action items</li>
+    <li><code>weekly-review</code> turns the week's calendar and inbox into a plan</li>
+    <li><code>task-capture</code> pulls tasks out of email and chat into your list</li>
+    <li><code>research-brief</code> a cited brief on any topic</li>
+    <li><code>standup-writer</code> your status update from what you actually did</li>
+    <li><code>doc-drafter</code> a first draft of a doc or contract from a brief</li>
+    <li><code>crm-hygiene</code> dedupes and tidies your contact records</li>
+  </ul>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li><b>Nothing sends on its own.</b> Replies, nudges and reminders land in Drafts. Deletes and other changes are proposed and only done on your yes.</li>
+    <li>It is on-demand help, not a background robot. You ask, it drafts.</li>
+    <li>Emails are treated as untrusted: the skills never follow instructions hidden inside a message and never open links from it.</li>
+    <li>It never invents money. Amounts come from your accounting data or stay blank for you to fill.</li>
+    <li>Free and open source under MIT. You bring your own accounts.</li>
+  </ul>
+
+  <footer>From the Claude videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
