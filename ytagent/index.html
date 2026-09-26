@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouTube agent skill: 11 free Claude skills that run your YouTube channel</title>
+<meta name="description" content="Set up Jakeschincariol/youtube-agent-skill in Claude: scored script hooks, title and thumbnail linting, edit decision lists, a Shorts finder, a weekly plan and a retention reader that shows the exact second viewers left. Install, first steps and honest notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude skills for YouTube</div>
+  <h1>The YouTube agent skill: 11 free Claude skills for your channel</h1>
+  <p class="lead">Scripts with a scored hook, title and thumbnail checked as one pair, dead air cut from your transcript, the Shorts hiding in your long videos, a week that fits your real hours, and a retention reader that shows the exact second people left and what you were saying.</p>
+  <div class="meta"><span class="pill">GitHub: Jakeschincariol/youtube-agent-skill</span><span class="pill">MIT license</span><span class="pill">No signup &middot; no API key</span></div>
+
+  <p>Repo: <a href="https://github.com/Jakeschincariol/youtube-agent-skill">github.com/Jakeschincariol/youtube-agent-skill</a></p>
+
+  <h2><span class="n">1</span>Paste the link into Claude</h2>
+  <p>In Claude Code (or any Claude that can install skills), paste this:</p>
+<pre>https://github.com/Jakeschincariol/youtube-agent-skill
+
+Install this skill, then confirm /yt-script works.</pre>
+  <p>Prefer to do it yourself? Either as a plugin:</p>
+<pre>/plugin marketplace add Jakeschincariol/youtube-agent-skill
+/plugin install youtube-agent</pre>
+  <p>or by copying the folders:</p>
+<pre>git clone https://github.com/Jakeschincariol/youtube-agent-skill.git
+cp -r youtube-agent-skill/skills/yt-* ~/.claude/skills/</pre>
+
+  <h2><span class="n">2</span>Spend ten minutes on your voice file</h2>
+  <p>Copy <code>templates/voice.md</code> to <code>~/.claude/youtube/voice.md</code> and fill it in, or send Claude three of your own videos and say <em>"write my voice.md from these"</em>. Every skill reads it, and on YouTube you say the words out loud, so it matters.</p>
+
+  <h2><span class="n">3</span>Start with these three</h2>
+  <div class="rules">
+    <div class="rule"><b>/yt-retention</b><span>Export your retention chart (Studio &rarr; a video &rarr; Analytics &rarr; Engagement &rarr; audience retention &rarr; download) and hand it over, ideally with the transcript. You get the hook leak, the cliffs, the slide, and one change for the biggest leak.</span></div>
+    <div class="rule"><b>/yt-script</b><span>One idea in, five hooks off 21 formulas, each scored on specificity, address, stakes, curiosity and brevity, then the spoken script with retention beats marked.</span></div>
+    <div class="rule"><b>/yt-package</b><span>Title and thumbnail linted as one pairing: truncation at ~60 characters on desktop and ~40 on mobile, duplicated words, too many words on the thumbnail.</span></div>
+  </div>
+
+  <h2>All eleven</h2>
+  <ul>
+    <li><code>/yt-script</code> one idea into a script with a scored hook</li>
+    <li><code>/yt-package</code> title and thumbnail as one pairing</li>
+    <li><code>/yt-edit</code> a transcript into an edit decision list: dead air, filler, retakes, with timecodes</li>
+    <li><code>/yt-comment</code> comments triaged into four piles, replies in your voice, which one to pin</li>
+    <li><code>/yt-plan</code> a week that fits your hours: one anchor, one cheap one, three Shorts</li>
+    <li><code>/yt-viral</code> what works in your niche, ranked by how far each video beat its own channel</li>
+    <li><code>/yt-retention</code> where viewers actually leave and what to change</li>
+    <li><code>/yt-shorts</code> the Shorts already inside a long video, with a new first line for each</li>
+    <li><code>/yt-seo</code> description, the tags worth having, the three queries it should win</li>
+    <li><code>/yt-chapters</code> chapters validated against YouTube's own rules</li>
+    <li><code>/yt-audit</code> the whole channel, ending in one fix rather than twenty</li>
+  </ul>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li><b>It does not publish.</b> The skills write, you upload. Every run ends with "ship it, or change it?"</li>
+    <li>The hook score is a heuristic calibrated on 74 real hooks, not a view predictor. A low score means look again; a high one is no promise.</li>
+    <li>Six small Python tools do the scoring and parsing (plain Python 3, no dependencies). Without Claude Code you can paste a single <code>SKILL.md</code> into a chat, but you lose those tools.</li>
+    <li><code>/yt-viral</code> only reads public listings and never logs in as you.</li>
+    <li>The example hooks, titles and timecodes in the video are illustrations; the scores shown came from running the repo's own <code>hookscore.py</code> and <code>title.py</code> on them.</li>
+    <li>Free and open source under MIT.</li>
+  </ul>
+
+  <footer>From the Claude videos by <a href="https://www.instagram.com/benni_online/">@benni_online</a>. Made with Claude Code.</footer>
+</main>
+</body>
+</html>
