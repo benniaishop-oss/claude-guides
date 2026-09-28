@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>second-brain-os: the free Claude setup that files and links your notes for you</title>
+<meta name="description" content="Set up undefined-ui/second-brain-os with Claude Code and Obsidian: 18 skills, 72 slash commands and 6 subagents that turn everything you save into linked notes you own. Install, first ingest, nightly schedule and honest notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Claude for your notes</div>
+  <h1>second-brain-os: Claude files, links and maintains everything you save</h1>
+  <p class="lead">You save articles, videos and screenshots and never look at them again. This setup hands the boring part to Claude: every source becomes a plain markdown page, linked to what you already know, kept tidy on a schedule, and you can ask it questions.</p>
+  <div class="meta"><span class="pill">GitHub: undefined-ui/second-brain-os</span><span class="pill">MIT</span><span class="pill">Claude Code + Obsidian</span></div>
+
+  <p>Repo and the full 77-page guide: <a href="https://github.com/undefined-ui/second-brain-os">github.com/undefined-ui/second-brain-os</a> &middot; read it on the web: <a href="https://undefined-ui.github.io/second-brain-os/">undefined-ui.github.io/second-brain-os</a></p>
+
+  <h2><span class="n">1</span>Set it up</h2>
+  <p><b>The easy way:</b> open Claude Code and paste this:</p>
+<pre>Set up my second brain from https://github.com/undefined-ui/second-brain-os in ~/brain: copy the vault template, put the skills, commands and agents into ~/brain/.claude and the scripts into ~/brain/scripts.</pre>
+  <p>Or do it yourself with the README's quickstart:</p>
+<pre>git clone https://github.com/undefined-ui/second-brain-os.git
+cp -r second-brain-os/vault-template ~/brain
+
+mkdir -p ~/brain/.claude
+cp -r second-brain-os/skills   ~/brain/.claude/skills
+cp -r second-brain-os/commands ~/brain/.claude/commands
+cp -r second-brain-os/agents   ~/brain/.claude/agents
+cp -r second-brain-os/scripts  ~/brain/scripts
+
+rm ~/brain/.claude/*/README.md ~/brain/scripts/README.md
+cd ~/brain &amp;&amp; claude</pre>
+  <p>Then install <a href="https://obsidian.md">Obsidian</a> (free) and open <code>~/brain</code> with "Open folder as vault". That's where you see the graph.</p>
+  <div class="note"><b>Windows:</b> use <code>python</code> wherever the guide says <code>python3</code>. The <code>python3</code> name usually points to the Microsoft Store stub and does nothing.</div>
+
+  <h2><span class="n">2</span>Feed it</h2>
+  <p>Clip an article into <code>raw/</code> (the <a href="https://obsidian.md/clipper">Obsidian Web Clipper</a> does it in one click), then run:</p>
+<pre>/ingest</pre>
+  <p>For a video or podcast use <code>/ingest-youtube</code>, for a PDF <code>/ingest-pdf</code>. Old Claude or ChatGPT exports go through the chat-import skill, which does a privacy pass first and lets you decide what gets in. The author's advice: feed it ten sources before you judge it.</p>
+
+  <h2><span class="n">3</span>Ask it, and put it on autopilot</h2>
+  <p>Ask questions with <code>/ask</code>; answers cite your own pages. Test yourself with <code>/quiz</code>. Then run:</p>
+<pre>/schedule</pre>
+  <p>It proposes a schedule for ingest, link, lint and review that fits how much you add, with the exact prompt for each task, so the vault files itself while you're away.</p>
+
+  <h2>What's inside</h2>
+  <div class="rules">
+    <div class="rule"><b>18 skills</b><span>ingest, query, graph, lint, merge, quiz, review, report, write, publish, privacy, project, metrics, rename, backfill, transcript, chat-import, changed-my-mind.</span></div>
+    <div class="rule"><b>72 slash commands + 6 subagents</b><span>Scoped entry points like /ingest-youtube, /orphans, /contradictions, /weekly. Subagents: curator, graph-analyst, ingestor, linker, researcher, reviewer (four of them read-only).</span></div>
+    <div class="rule"><b>Nothing is ingested until it is linked</b><span>A new page connects to what's already there in the same run, so the vault gets better as it grows instead of just bigger.</span></div>
+    <div class="rule"><b>Contradictions are recorded, never overwritten</b><span>When a new source disagrees, both positions stay with dates and sources: the history of what you believed and why.</span></div>
+  </div>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li><b>The repo is free</b> (MIT) and so is Obsidian. Claude Code itself needs a Claude plan.</li>
+    <li>It's for people who read and save a lot. The README says it plainly: it won't organise a vault you never add to, and it's not a team wiki.</li>
+    <li>Everything stays plain markdown in a folder you own. Walk away from every tool and you keep the notes.</li>
+    <li>The notes, chats and quiz in the Instagram video are illustrations drawn for the video; the numbers (750 stars, 18 skills, 72 commands) come from the repo and its README.</li>
+  </ul>
+
+  <footer>Made by <a href="https://www.instagram.com/benni_online/">@benni_online</a> &middot; Independent guide, not affiliated with Anthropic or the repo author.</footer>
+</main>
+</body>
+</html>
