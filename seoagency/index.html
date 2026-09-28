@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fire-your-seo-agency: the free Claude skill that does your SEO</title>
+<meta name="description" content="Set up leopard627/fire-your-seo-agency in Claude Code: a free skill that audits your site across SEO, AEO, GEO, LLMO and Naver, fixes what is broken, builds a blog that gets cited and re-measures two weeks later. Install, first audit and honest notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-all; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+<main>
+  <div class="eyebrow">Guide &middot; Claude for your website</div>
+  <h1>fire-your-seo-agency: Claude audits your site, fixes it and measures the result</h1>
+  <p class="lead">SEO and "AI visibility" agencies charge $400 to $2,500 a month, and most of what they do is public standards and repeatable checklists. This free Claude Code skill runs those checklists on your own site: it finds what's broken, fixes it with you, and books a re-measurement so you see the numbers instead of promises.</p>
+  <div class="meta"><span class="pill">GitHub: leopard627/fire-your-seo-agency</span><span class="pill">MIT</span><span class="pill">Claude Code skill</span></div>
+
+  <p>Repo: <a href="https://github.com/leopard627/fire-your-seo-agency">github.com/leopard627/fire-your-seo-agency</a></p>
+
+  <h2><span class="n">1</span>Install it</h2>
+  <p><b>The easy way:</b> open Claude Code and paste this:</p>
+<pre>Install the skill from https://github.com/leopard627/fire-your-seo-agency and then audit my site.</pre>
+  <p>Or install it as a plugin yourself (the README's recommended way, easy updates):</p>
+<pre>/plugin marketplace add leopard627/fire-your-seo-agency
+/plugin install fire-your-seo-agency@fire-your-seo-agency</pre>
+  <p>Or clone it as a personal skill that works in every project:</p>
+<pre>git clone https://github.com/leopard627/fire-your-seo-agency.git ~/.claude/skills/fire-your-seo-agency</pre>
+
+  <h2><span class="n">2</span>Run the audit</h2>
+  <p>In Claude Code, ideally inside your website's project folder so it can fix things directly:</p>
+<pre>/fire-your-seo-agency audit my site</pre>
+  <p>It reads your site the way a crawler does (no JavaScript) and returns a scorecard before it touches anything: one line per lane with a status and the evidence, for example "214 detail pages missing from sitemap" or "No llms.txt". Then it proposes priorities and asks before it starts.</p>
+
+  <h2><span class="n">3</span>Fix, then measure</h2>
+  <p>After your OK it works through the fixes: sitemap, meta tags, structured data, llms.txt, one-question-one-page landing pages. If it has access to your code it changes it; if not, it tells you file by file what to change. When it's done it records a baseline and proposes a re-measurement in 14 days (impressions, clicks, citations). "Fixed it" without a measurement doesn't count as done.</p>
+
+  <h2>What's inside</h2>
+  <div class="rules">
+    <div class="rule"><b>SEO</b><span>Can Google and Bing read and index your content at all? SSR, sitemaps, meta, canonical, the classic noindex accident.</span></div>
+    <div class="rule"><b>AEO</b><span>Answer engines: does the AI box above the results (Google AI Overviews, Bing Copilot) cite you? Direct-answer first paragraphs, FAQ data.</span></div>
+    <div class="rule"><b>GEO + LLMO</b><span>When ChatGPT, Perplexity or Claude browse, are you the primary source? And does the model know your brand, spelled one way?</span></div>
+    <div class="rule"><b>NEO (Naver)</b><span>For the Korean market: Naver Search Advisor and AI Briefing. Skip it if you don't serve Korea.</span></div>
+    <div class="rule"><b>Content engine</b><span>A blog under your domain with a question backlog from your own search data and a publish gate every post must pass, plus a refresh and merge policy so posts don't rot.</span></div>
+  </div>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li><b>The skill is free</b> (MIT). Claude Code itself needs a Claude plan.</li>
+    <li>It refuses the shady stuff on purpose: no bought backlinks, no keyword stuffing, no "guaranteed rankings".</li>
+    <li>It's not magic: search results take weeks to move, which is exactly why it schedules the re-measurement.</li>
+    <li>The agent reads the Korean reference docs (they're canonical); English mirrors are in <code>references/en/</code> for you.</li>
+    <li>The site, search, chat and brand name in the Instagram video are illustrations drawn for the video; the numbers (614 stars, five lanes, $400 to $2,500 a month, 214 pages in the sample scorecard, 14 days) come from the repo and its README.</li>
+  </ul>
+
+  <footer>Made by <a href="https://www.instagram.com/benni_online/">@benni_online</a> &middot; Independent guide, not affiliated with Anthropic or the repo author.</footer>
+</main>
+</body>
+</html>
