@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The horror prompt: turn pet peeves into a motion graphic with Claude</title>
+<meta name="description" content="The exact prompt behind the "everyday horror" motion graphic, and two ways to turn a Claude prompt into a finished vertical video: the quick way in the Claude app and the pro way in Claude Code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --tint:#F4F9FF; --line:#E4ECF6; --line-strong:#CEDDEF; --text:#0D1826; --muted:#4B5B70; --faint:#8494A8; --blue:#2E90FA; --blue-dark:#1570CF; --blue-light:#7CC0FF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:680px; margin:0 auto; padding:64px 24px 96px; }
+  a { color:var(--blue-dark); }
+  .eyebrow { color:var(--blue-dark); font-weight:600; font-size:14px; letter-spacing:.02em; text-transform:uppercase; }
+  h1 { font-size:38px; line-height:1.15; letter-spacing:-.02em; margin:8px 0 12px; }
+  p.lead { color:var(--muted); font-size:19px; margin:0 0 36px; }
+  .meta { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .pill { background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); }
+  h2 { font-size:24px; letter-spacing:-.01em; margin:44px 0 10px; display:flex; align-items:center; gap:12px; }
+  h2 .n { width:32px; height:32px; border-radius:10px; background:var(--blue); color:#fff; font-size:15px; font-weight:700; display:grid; place-items:center; flex:none; }
+  p { margin:0 0 14px; }
+  pre { background:#0D1826; color:#E6EEF8; border-radius:14px; padding:16px 18px; overflow-x:auto; font:500 14.5px/1.6 "JetBrains Mono", ui-monospace, monospace; margin:12px 0 18px; white-space:pre-wrap; word-break:break-word; }
+  .note { background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0 6px; color:var(--muted); font-size:15.5px; }
+  .note b { color:var(--text); }
+  .rules { display:grid; gap:12px; margin:8px 0 8px; }
+  .rule { background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+  .rule b { display:block; margin-bottom:4px; font-family:"JetBrains Mono", ui-monospace, monospace; font-weight:500; color:var(--blue-dark); }
+  .rule span { color:var(--muted); font-size:15.5px; }
+  ul { padding-left:22px; margin:0 0 14px; } li { margin:4px 0; }
+  code { font:500 14.5px "JetBrains Mono", ui-monospace, monospace; background:var(--tint); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  footer { margin-top:64px; color:var(--faint); font-size:14px; border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Guide &middot; Motion graphics with Claude</div>
+  <h1>The horror prompt: turn pet peeves into a motion graphic with Claude</h1>
+  <p class="lead">You saw 1% battery, the group chat and reply all turn into horror movies, with Monday as the scariest one. No After Effects, no editor: Claude writes the whole animation as code, and a browser turns it into video. Here is the exact prompt and two ways to get your own video out of it.</p>
+  <div class="meta"><span class="pill">Works with Claude Opus 5.5</span><span class="pill">Claude app or Claude Code</span><span class="pill">No design skills needed</span></div>
+
+  <h2><span class="n">1</span>The exact prompt</h2>
+  <p>This is the prompt from the video. Copy it as it is, or swap in your own pet peeves:</p>
+<pre>Make a 15 second motion graphic that turns everyday pet peeves into horror movies on a streaming app: 1% battery, 47 unread messages, reply all, screen time, left on seen. Save the scariest one for last.</pre>
+  <p>Add these lines under it. They are what makes the result look designed instead of random:</p>
+<pre>Format: vertical 1080x1920. Build it as one HTML file.
+Style: dark streaming app, one red accent, bold condensed titles, skull ratings, "Rated R for relatable".
+Posters: each movie gets a poster with a small animated scene (a battery draining, notifications piling up, a progress bar you cannot undo).
+Motion: springs with a little bounce, every change lands on a beat, nothing stays still for more than 2 seconds.
+End card: a big line of text with my call to action.</pre>
+
+  <h2><span class="n">2</span>The quick way: Claude app</h2>
+  <p>Paste the prompt into <a href="https://claude.ai">claude.ai</a> (or the desktop app). Claude builds the animation as an artifact you can watch right in the chat. Say what to change ("slower", "make the chat funnier", "bigger text") until you like it.</p>
+  <p>To get a video file, open the artifact full screen on your phone or in a narrow browser window and screen record it. Crop to 9:16 and you are done.</p>
+  <div class="note"><b>Tip:</b> ask Claude to "add a 1 second pause at the start and a replay button" so your screen recording starts clean.</div>
+
+  <h2><span class="n">3</span>The pro way: Claude Code renders a real MP4</h2>
+  <p>In <a href="https://claude.com/claude-code">Claude Code</a> Claude can render the video itself, frame by frame, so it is perfectly smooth and exactly 1080x1920. Add this to the prompt:</p>
+<pre>Write it so that a function window.render(t) draws the exact frame for time t in seconds (no timers, no CSS animations), and set window.END to the length.
+Then write a small Python script with Playwright that opens the page, calls render(i / 30) for every frame, screenshots each one and joins them into final.mp4 with ffmpeg. Run it and show me the result.</pre>
+  <p>Claude installs what it needs (Playwright and ffmpeg), renders, and you get <code>final.mp4</code> ready for Reels, TikTok and Shorts.</p>
+
+  <h2>Ideas that work in this format</h2>
+  <div class="rules">
+    <div class="rule"><b>Everyday horror</b><span>Pet peeves as horror titles: 1% battery, reply all, the group chat. Save the most relatable one (Monday) for last.</span></div>
+    <div class="rule"><b>Relatable over technical</b><span>Everyone has been left on seen. The more people see themselves in it, the more it gets sent to friends.</span></div>
+    <div class="rule"><b>Show the prompt</b><span>Putting the prompt on screen is the hook: people stop because they cannot believe one sentence made this.</span></div>
+  </div>
+
+  <h2>Honest notes</h2>
+  <ul>
+    <li>Claude needs a paid plan for the best model; the free plan can still build simpler versions.</li>
+    <li>The first result is rarely perfect. Plan on two or three rounds of "change this".</li>
+    <li>Our video was made the pro way, with a few extra touches (text effects inspired by the free <a href="https://github.com/DavidHDev/react-bits">React Bits</a> library).</li>
+  </ul>
+
+  <footer>Made by <a href="https://www.instagram.com/benni_online/">@benni_online</a> &middot; Independent guide, not affiliated with Anthropic.</footer>
+</main>
+</body>
+</html>
